@@ -47,6 +47,7 @@ const Header = () => {
     setTheme(newTheme);
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
   };
 
@@ -57,9 +58,13 @@ const Header = () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
     document.body.classList.add(savedTheme);
+    // Ajout de la gestion de l'attribut data-theme sur <html>
+    document.documentElement.setAttribute('data-theme', savedTheme);
     
     return () => {
       document.body.classList.remove('light', 'dark');
+      // Nettoyage de l'attribut data-theme sur <html>
+      document.documentElement.removeAttribute('data-theme');
     };
   }, []);
 
