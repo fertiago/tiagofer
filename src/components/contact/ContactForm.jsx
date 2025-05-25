@@ -3,7 +3,7 @@ import ProgressBar from './ProgressBar';
 import ChatContent from './ChatContent';
 import InputSection from './InputSection';
 import { quizQuestions } from '../../data/contactQuestions';
-import { animateButton, isValidEmail } from '../../utils/contactUtils';
+import { animateButton, isValidEmail, openMailto } from '../../utils/contactUtils';
 
 const ContactForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -128,16 +128,17 @@ const ContactForm = () => {
   };
 
   const submitForm = () => {
-    addMessage('Envoi en cours...');
+    addMessage('Ouverture de votre client email...');
 
     setTimeout(() => {
-      addMessage('Formulaire envoyé! Merci pour votre message. Nous vous répondrons dès que possible.');
+      openMailto(answers.name, answers.email, answers.message);
+      addMessage('Client email ouvert! Si votre client email ne s\'est pas ouvert automatiquement, veuillez copier les informations et envoyer manuellement.');
       
       // Réinitialise le formulaire pour un nouveau message
       setTimeout(() => {
         resetForm();
-      }, 2000);
-    }, 1500);
+      }, 3000);
+    }, 1000);
   };
 
   const resetForm = () => {

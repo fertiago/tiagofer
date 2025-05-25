@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import QuizButton from './QuizButton';
 import QuizModal from './QuizModal';
 import { quizQuestions, checkAnswer } from '../../data/quizData';
@@ -14,11 +15,22 @@ const Quiz = ({ customQuestions = null }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [progress, setProgress] = useState(0);
   const [questions, setQuestions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Utilise les questions personnalisées si fournies, sinon les questions par défaut
     setQuestions(customQuestions || quizQuestions);
   }, [customQuestions]);
+
+  // Effet pour rediriger vers /contact/ quand toutes les bonnes réponses sont trouvées
+  useEffect(() => {
+    if (questions.length > 0 && correctAnswers === questions.length) {
+      // Délai court pour permettre à l'utilisateur de voir le résultat final
+      setTimeout(() => {
+        navigate('/contact/');
+      }, 1500);
+    }
+  }, [correctAnswers, questions.length, navigate]);
 
   // Fonctions pour gérer l'ouverture et la fermeture de la modal
   const openModal = () => setIsModalOpen(true);

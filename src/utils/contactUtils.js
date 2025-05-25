@@ -14,3 +14,11 @@ export const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     return emailRegex.test(email);
 };
+
+export const openMailto = (name, email, message) => {
+    const subject = encodeURIComponent(`Message de ${name}`);
+    const body = encodeURIComponent(`Bonjour ${name},\n\\n${message}`);
+    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
+
+    window.open(mailtoUrl, '_self');
+};
