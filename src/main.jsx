@@ -9,6 +9,27 @@ import Calculatrice from './pages/Calculatrice'
 import './styles/index.css'
 import './styles/themes.css'
 
+// Fonction pour ajouter ou modifier la balise link icon
+function setFavicon(iconPath = '/database.svg') {
+  // Supprimer les icônes existantes
+  const existingIcons = document.querySelectorAll('link[rel*="icon"]');
+  existingIcons.forEach(icon => icon.remove());
+  
+  // Créer une nouvelle balise link pour l'icône
+  const link = document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/svg+xml';
+  link.href = iconPath;
+  
+  // Ajouter la balise au head
+  document.head.appendChild(link);
+  
+  console.log('Favicon configuré avec succès :', iconPath);
+}
+
+// Configurer l'icône au chargement
+setFavicon();
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
